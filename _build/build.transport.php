@@ -75,7 +75,41 @@ $category->set('category',PKG_NAME);
 $modx->log(modX::LOG_LEVEL_INFO,'Packaged in category.'); flush();
   
 
-/* create category vehicle */
+
+/* add plugins */
+/*$plugins = include $sources['data'].'transport.plugins.php';
+if (!is_array($plugins)) { $modx->log(modX::LOG_LEVEL_FATAL,'Adding plugins failed.'); } 
+else{
+    $category->addMany($plugins);
+    $modx->log(modX::LOG_LEVEL_INFO,'Packaged in '.count($plugins).' plugins.'); flush();
+}
+
+unset($plugins);
+
+
+/* add snippets */
+/*$snippets = include $sources['data'].'transport.snippets.php';
+if (!is_array($snippets)) {
+    $modx->log(modX::LOG_LEVEL_ERROR,'Could not package in snippets.');
+} else {
+    $category->addMany($snippets);
+    $modx->log(modX::LOG_LEVEL_INFO,'Packaged in '.count($snippets).' snippets.');
+}
+unset($snippets);
+
+/* add chunks */
+/*$chunks = include $sources['data'].'transport.chunks.php';
+if (!is_array($chunks)) {
+    $modx->log(modX::LOG_LEVEL_ERROR,'Could not package in chunks.');
+} else {
+    $category->addMany($chunks);
+    $modx->log(modX::LOG_LEVEL_INFO,'Packaged in '.count($chunks).' chunks.');
+}
+unset($chunks);
+
+/*
+ * Create category vehicle
+ */
 $attr = array(
     xPDOTransport::UNIQUE_KEY => 'category',
     xPDOTransport::PRESERVE_KEYS => false,
@@ -96,49 +130,19 @@ $attr = array(
             xPDOTransport::PRESERVE_KEYS => false,
             xPDOTransport::UPDATE_OBJECT => true,
             xPDOTransport::UNIQUE_KEY => 'name',
-        ),
-        'PluginEvents' => array(
-            xPDOTransport::PRESERVE_KEYS => true,
-            xPDOTransport::UPDATE_OBJECT => false,
-            xPDOTransport::UNIQUE_KEY => array('pluginid','event'),
+            xPDOTransport::RELATED_OBJECTS => true,
+            xPDOTransport::RELATED_OBJECT_ATTRIBUTES => array (
+                'PluginEvents' => array(
+                    xPDOTransport::PRESERVE_KEYS => true,
+                    xPDOTransport::UPDATE_OBJECT => false,
+                    xPDOTransport::UNIQUE_KEY => array('pluginid','event'),
+                ),
+            ),
         ),
     )
 );
-
-
-/* add plugins */
-/*$plugins = include $sources['data'].'transport.plugins.php';
-if (!is_array($plugins)) { $modx->log(modX::LOG_LEVEL_FATAL,'Adding plugins failed.'); } 
-else{
-    $category->addMany($plugins);
-    $modx->log(modX::LOG_LEVEL_INFO,'Packaged in '.count($plugins).' plugins.'); flush();
-}
-
-unset($plugins,$plugin,$attributes);*/
-
-
-/* add snippets */
-/*$snippets = include $sources['data'].'transport.snippets.php';
-if (!is_array($snippets)) {
-    $modx->log(modX::LOG_LEVEL_ERROR,'Could not package in snippets.');
-} else {
-    $category->addMany($snippets);
-    $modx->log(modX::LOG_LEVEL_INFO,'Packaged in '.count($snippets).' snippets.');
-}
-
-/* add chunks */
-/*$chunks = include $sources['data'].'transport.chunks.php';
-if (!is_array($chunks)) {
-    $modx->log(modX::LOG_LEVEL_ERROR,'Could not package in chunks.');
-} else {
-    $category->addMany($chunks);
-    $modx->log(modX::LOG_LEVEL_INFO,'Packaged in '.count($chunks).' chunks.');
-}
-
-/*
- * Create category vehicle
- */
 $vehicle = $builder->createVehicle($category,$attr);
+
 
 // Add core source
 $vehicle->resolve('file',array(
