@@ -54,7 +54,7 @@ $modx->lexicon->load(PKG_NAME_LOWER.':properties');*/
 
 
 /* add namespace */
-$namespace = $modx->newObject('modNamespace');
+/*$namespace = $modx->newObject('modNamespace');
 $namespace->set('name', NAMESPACE_NAME);
 $namespace->set('path',"{core_path}components/".PKG_NAME_LOWER."/");
 $namespace->set('assets_path',"{assets_path}components/".PKG_NAME_LOWER."/");
@@ -65,7 +65,23 @@ $vehicle = $builder->createVehicle($namespace,array(
 ));
 $builder->putVehicle($vehicle);
 $modx->log(modX::LOG_LEVEL_INFO,"Packaged in ".NAMESPACE_NAME." namespace."); flush();
-unset($vehicle,$namespace);
+unset($vehicle,$namespace);*/
+
+
+/* load system settings */
+/*$settings = include_once $sources['data'].'transport.settings.php';
+$attributes= array(
+    xPDOTransport::UNIQUE_KEY => 'key',
+    xPDOTransport::PRESERVE_KEYS => true,
+    xPDOTransport::UPDATE_OBJECT => false,
+);
+if (!is_array($settings)) { $modx->log(modX::LOG_LEVEL_ERROR,'Adding settings failed.'); }
+foreach ($settings as $setting) {
+    $vehicle = $builder->createVehicle($setting,$attributes);
+    $builder->putVehicle($vehicle);
+}
+$modx->log(modX::LOG_LEVEL_INFO,'Packaged in '.count($settings).' system settings.'); flush();
+unset($settings,$setting,$attributes);
 
 
 /* create category */
