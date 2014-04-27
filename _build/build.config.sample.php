@@ -1,15 +1,15 @@
 <?php
-
+// reporting
 error_reporting(E_ALL ^E_NOTICE);
 ini_set('display_errors', true);
- 
+
 /*
  * Include MODX config
  */
 require_once dirname(dirname(dirname(dirname(__FILE__)))).'/core/config/config.inc.php';
 
 /* define sources */
-$root = dirname(dirname(__FILE__)).'/'; 
+$root = dirname(dirname(__FILE__)).'/';
 
 /*
  * Constants
@@ -38,9 +38,9 @@ $sources = array_merge($sources,array(
   'model'             => $sources['source_core'] .'model/',
 ));
 unset($root);
- 
+
 require_once MODX_CORE_PATH . 'model/modx/modx.class.php';
-require_once $sources['build'] . '/includes/functions.php';
+require_once $sources['includes'] . 'functions.php';
 
 $modx= new modX();
-$modx->initialize('mgr'); 
+$modx->initialize('mgr');
