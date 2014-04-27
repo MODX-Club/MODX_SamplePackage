@@ -2,16 +2,18 @@
 
 $settings = array();
 
+$setting_name = PKG_NAME_LOWER.'.setting';
 $setting = $modx->newObject('modSystemSetting');
 $setting->fromArray(array(
-    'key' => 'key',     // set unique key
-    'value' => '',
-    'xtype' => 'textfield',     //  textfield, numberfield, combo-boolean or other
-    'namespace' => NAMESPACE_NAME,
-    'area' => 'site',
+ 'key' => $setting_name,
+ 'value' => '',
+ 'xtype' => 'textfield',
+ 'namespace' => NAMESPACE_NAME,
+ 'area' => 'default',
 ),'',true,true);
+
 $settings[] = $setting;
 
 
-unset($setting);
+unset($setting,$setting_name);
 return $settings;
