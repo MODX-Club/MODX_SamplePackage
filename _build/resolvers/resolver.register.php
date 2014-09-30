@@ -12,7 +12,7 @@ if ($object->xpdo) {
       if ($modx instanceof modX) {
         $modx->addExtensionPackage($pkgName, "[[++core_path]]components/{$pkgNameLower}/model/", array(
           // 'serviceName' => $pkgName,
-          // 'serviceClass' => $pkgsName,
+          // 'serviceClass' => $pkgName,
         ));
         $modx->log(xPDO::LOG_LEVEL_INFO, 'Adding ext package');
       } 
