@@ -4,7 +4,7 @@ $snippets = array();
 
 /* course snippets */
 
-$list = array('samplepackage');
+$list = array(PKG_NAME_LOWER);
 
 foreach($list as $v){
   
